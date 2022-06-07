@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%=type%> | EverGreen</title>
+        <%-include('links.ejs');%>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+        
+    </head>
+    <body>
+        <div id="prod-container" data-prod="<%=prod%>">
+        <%details.forEach(function (d) { %>
+            <h1><%=d.nom%></h1>
+            <img src="../public/images/<%=d.id%>.png" alt="<%=d.id%>"  height="170">
+            <p><%=d.description%></p>
+            <button id="add-in-cart-<%=d.id%>" data-type="<%=type%>" data-name="<%=d.nom%>" data-id="<%=d.id%>" data-price="<%=d.prix%>">
+                Ajouter</button> 
+        <%});%>
+    </div>
+        
+
+       <%-include('panier');%>
+    
+    </body>
+</html>

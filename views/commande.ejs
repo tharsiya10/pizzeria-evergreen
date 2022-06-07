@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>EverGreen</title>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        
+    </head>
+    <body>
+        <h1 id="order-nb">Commande <% if(typeof idCmd !== 'undefined' && typeof idCmd.rows[0] !== 'undefined'){ %><%=idCmd.rows[0].idcmd%><%}%></h1>
+        
+        <div class="commande">
+            <div class="details-client">
+                <%if(typeof client_details.rows[0] !== 'undefined') {%>
+                <p>Nom: <%=client_details.rows[0].nom%> </p>
+                <p>Prenom: <%=client_details.rows[0].prenom%></p>
+                <p><%=client_details.rows[0].adresse%></p>
+                <p><%=client_details.rows[0].code%></p>
+                <p><%=client_details.rows[0].tel%></p>
+                <p><%=client_details.rows[0].mail%></p>
+                <%}%>
+            </div>
+            <div class="details-cart">
+                <% if(typeof entrees !== 'undefined'){%>
+                    <h3>Entrées</h3>
+                    <%for(var j = 0; j < entrees.length; j++){
+                        if(typeof entrees[j][0] !== 'undefined'){%>
+                            <p><%=entrees[j][0].nom%></p>
+                            <%if(typeof sauces_entrees[j][0] !== 'undefined'){ %>
+                                <p><%=sauces_entrees[j][0].nom%></p>
+                            <%}%>
+                            <p><%=entrees[j][0].prix%></p>
+                        <%}
+                    }%>
+                    
+                <%}%>
+                <% if(typeof sauces !== 'undefined'){ %>
+                    <h3>Sauces</h3>
+                    <%sauces.forEach(function(b){%>
+                        <p><%=b[0].nom%></p>
+                        <p><%=b[0].prix%></p>
+                    <%});
+                }%>
+                <% if(typeof pizzas !== 'undefined'){ %>
+                    <h3>Pizzas</h3>
+                    <% for(var i = 0; i < pizzas.length; i++){ %>
+                        <p><%=pizzas[i][0].nom%></p>   
+                        <p><%=pizzas[i][0].taille%></p>  
+                        <p><%=idPizza.rows[i].prix%></p>
+                        <%if(typeof ingredients !== 'undefined'){%>
+                            <%ingredients[i].forEach(function(i){%>
+                                <p><%=(i.cle_ingr).replace('-',' ')%></p>
+                                
+                       <% }); %>
+                    <% } 
+                    }
+                }%>
+                <% if(typeof desserts !== 'undefined'){ %>
+                    <h3>Desserts</h3>
+                    <%  desserts.forEach(function(d){%>
+                        <p><%=d[0].nom%></p>
+                        <p><%=d[0].prix%></p>
+                    <%});
+                }%>
+                <% if(typeof boissons !== 'undefined'){%>
+                    <h3>Boissons</h3>
+                    <%boissons.forEach(function(b){%>
+                        <p><%=b[0].nom%></p>
+                        <p><%=b[0].qte%> L</p>
+                        <p><%=b[0].prix%></p>
+                    <%});
+                }%>
+            </div>
+            <div>
+                <p>Montant: 
+                    <% if(typeof idCmd !== 'undefined' && typeof idCmd.rows[0] !== 'undefined'){ %>
+                    <%=idCmd.rows[0].montant%> €
+                    <% } %>
+                </p> 
+                
+            </div>
+            <div class="btn">
+                <% if(typeof idCmd === 'undefined' && typeof client_details.rows[0] === "undefined"){%>
+                <button id="delivered" data-livr="<%=idLivr%>" onclick="delivered()" disabled>Livraison effectuée</button>
+                <%}
+                else { %>
+                    <button id="delivered" data-livr="<%=idLivr%>" data-client="<%=client_details.rows[0].idclient%>" onclick="delivered()">Livraison effectuée</button>
+                <%}%>
+            </div>
+        </div>
+        <script>
+            function delivered(){
+                let idCmd = (document.getElementById('order-nb').innerHTML).substring(9);
+                let btn = (document.getElementById('delivered'));
+                let idLivr = btn.getAttribute("data-livr");
+                let idClient = btn.getAttribute("data-client");
+                console.log(idLivr);
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "/livraison", true);
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(JSON.stringify({'commande': idCmd, 'livreur': idLivr, 'client': idClient}));
+                location.reload();
+            }
+        </script>
+    </body>
+</html>

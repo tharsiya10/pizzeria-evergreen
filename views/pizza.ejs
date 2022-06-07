@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>EverGreen</title>
+        <%-include('links.ejs');%>
+        
+    </head>
+    <body>
+        
+        <h1></h1>
+        <% carte.forEach(function (c) {  %>
+            
+            <a href="<%=c.typeOfProd%>"><%=c.nom%></a>
+            
+        <% });%>
+<% 
+prod.forEach(function (p){ %>
+
+    <div id="prod-container" data-prod="<%=content%>">
+        
+        <a href="<%=type%>/<%=p.id%>">
+        <img src="../public/images/<%=p.id%>.png" alt="<%=p.id%>"  height="170"></a>
+        <select name="taille" id="taille-select-<%=p.id%>">
+            <% pizzas.forEach(function(pz){ %> 
+            
+                <% if(pz.id === p.id ) {%>
+                    
+                        <option id="taille-<%=pz.id%>-<%=pz.taille%>" value="<%=pz.taille%>" data-price="<%=pz.prix%>"><%=pz.taille%></option>
+                    
+                <%}%>
+            
+            <%}) %>
+        </select>
+        <%if(p.id === "custom") {%>
+            <button id="customize" onclick="redirect()">
+                Personnaliser</button>
+        <%} else { %>
+            <button id="add-in-cart-<%=p.id%>" data-type="<%=type%>" data-name="<%=p.nom%>" data-id="<%=p.id%>" data-price="<%=p.prix%>">
+                Ajouter</button>
+        <% } %>
+    </div>
+<%
+})
+%>
+<%-include('panier.ejs');%>
+</body>
+
+<script>
+    function redirect(){
+        window.location = '/pizza/custom';
+    }
+</script>
+</html>
+
+

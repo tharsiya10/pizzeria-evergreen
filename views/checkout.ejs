@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Formulaire</title>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        
+        <script type="text/javascript" src="/public/js/cart_modif_fun.js"></script>
+        <script type="text/javascript" src="/public/js/cart_visual.js"></script>
+        <script type="text/javascript" src="/public/js/add_in_cart.js"></script>
+        <script type="text/javascript" src="/public/js/checkout.js"></script>
+
+    </head>
+    <body>
+        <h1>Finaliser commande</h1>
+        <div class="form-container">
+            <form action="/commande" method="post" class="client">
+            
+                <div class="input-data">
+                    <label for="nom">Nom</label>
+                    <input type="text" id="nom" name="nom">
+                </div>
+                        
+                <div class="input-data">
+                    <label for="prenom">Prénom</label>
+                    <input type="text" id="prenom" name="prenom" value="">
+                </div>
+    
+                <div class="input-data">
+                    <label for="rue">Rue</label>
+                    <input type="text" name="rue" id="rue" value="">
+                </div>
+
+                <div class="input-data">
+                    <label for="code-postal">Code postal</label>
+                    <input type="text" name="postal" id="postal" value="">
+                </div>
+
+                <div class="input-data">
+                    <label for="ville">Ville</label>
+                    <input type="text" name="ville" id="ville" value="">
+                </div>
+
+                <div class="input-data">
+                    <label for="code">Code d'immeuble/N° d'étage (optionnels)</label>
+                    <input type="text" name="code" id="code" value="">
+                </div>
+    
+                <div class="input-data">
+                    <label for="mobile">Mobile</label>
+                    <input type="text" name="mobile" id="mobile" value="">
+                </div>
+    
+                <div class="input-data">
+                    <label for="mail">Adresse e-mail</label>
+                    <input type="text" name="mail" id="mail" value=""> 
+                </div>
+                        
+                <div class="input-data">
+                    <label for="horaire">Horaire de livraison souhaitée</label>
+                    <input type="time" min="12:00" max="21:00" name="horaire" id="horaire" value="12:00">
+                </div>
+                    
+                <input type="submit" id="client-data" method="post" value="Envoyer">
+              
+        </form>
+    </div>
+    </body>
+</html>

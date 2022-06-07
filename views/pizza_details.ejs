@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pizzas | EverGreen</title>
+        <%-include('links.ejs');%>
+        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+        <script type="text/javascript" src="/public/js/add_toppings.js"></script>
+       <script type="text/javascript" src="/public/js/manage_toppings.js"></script>
+    </head>
+    <body>
+        
+        
+        <%pizzas.forEach(function (p) { %>
+            <div id="prod-container" data-prod="<%=prod%>" data-id="<%=p.id%>">
+            <h1><%=p.nom%></h1>
+            <img src="../public/images/<%=p.id%>.png" alt="<%=p.id%>"  height="170">
+            <select name="taille" id="taille-select-<%=p.id%>">
+            <% details.forEach(function(pz){ %> 
+            
+                <% if(pz.id === p.id ) {%>
+                    
+                        <option id="taille-<%=pz.id%>-<%=pz.taille%>" value="<%=pz.taille%>" data-price="<%=pz.prix%>"><%=pz.taille%></option>
+                    
+                <%}%>
+            
+            <%}) %>
+            </select>
+
+            <div id="ingredients-chosen" data-ingr="<%=store_ingr_pizzas%>">
+                <h3>Vos ingrédients</h3>
+                <%ingredients_pizzas.forEach(function(ip) { count += 1 ;%>
+                    <div id="my-toppings-<%=count%>" data-cle="<%=ip.cle_ingr%>">
+                        <p><%=ip.cle_ingr%></p>
+                        <button id="rm-toppings-<%=count%>">
+                            x</button>
+                    </div>
+                <%});%>
+            </div>
+
+            <div id="all-ingredients" data-all="<%=store_all_ingr%>">
+                <h3>Liste des ingrédients</h3>
+                <%all_ingredients.forEach(function(ai){ %>
+                    <span><%=ai.nom_ingr%></span>
+                    <span id="prix-ingr-<%=ai.cle_ingr%>" data-price="<%=ai.prix%>"><%=ai.prix%> €</span>
+                    <br/>
+                    <button id="add-toppings-<%=ai.cle_ingr%>" data-prix="<%=ai.prix%>">
+                        +</button>
+                        <br/>
+                <%});%>
+            </div>
+            
+                <button id="add-in-cart-<%=p.id%>" data-type="<%=type%>" data-name="<%=p.nom%>" data-id="<%=p.id%>" data-price="<%=p.prix%>" data-ingr="<%store_ingr_pizzas%>">
+                    Ajouter</button>  
+
+                
+            </div>
+        <%});%>
+        
+       
+       
+       <%-include('panier.ejs');%>
+       
+    </body>
+</html>

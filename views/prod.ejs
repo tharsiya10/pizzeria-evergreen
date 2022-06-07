@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>EverGreen</title>
+        <%-include('links.ejs');%>
+        
+    </head>
+    <body>
+        
+        <% carte.forEach(function (c) {  %>
+            
+            <a href="<%=c.typeOfProd%>"><%=c.nom%></a>
+            
+        <% });%>
+        <div id="all-products">
+            <%
+            prod.forEach(function (p) { %>
+                <div id="prod-container" data-prod="<%=content%>">
+                    <a href="<%=type%>/<%=p.id%>"><img src="../public/images/<%=p.id%>.png" alt="<%=p.id%>"  height="170"></a>
+                    
+                    <button id="add-in-cart-<%=p.id%>" data-type="<%=type%>" data-name="<%=p.nom%>" data-taille="<%=p.nom%>" data-id="<%=p.id%>" data-price="<%=p.prix%>">
+                        Ajouter</button>
+                </div>
+                
+
+                
+            <%});%>    
+        </div>    
+        
+
+        <%-include('panier.ejs');%>
+    
+    </body>
+</html>
